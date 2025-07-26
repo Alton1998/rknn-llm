@@ -1,0 +1,2 @@
+/mnt/c/users/dsouz/llm-device/rknn-llm/examples/DeepSeek-R1-Distill-Qwen-1.5B_Demo/deploy/install/demo_Linux_aarch64/./llm_demo
+/mnt/c/users/dsouz/llm-device/rknn-llm/examples/DeepSeek-R1-Distill-Qwen-1.5B_Demo/deploy/install/demo_Linux_aarch64/lib/librkllmrt.so
