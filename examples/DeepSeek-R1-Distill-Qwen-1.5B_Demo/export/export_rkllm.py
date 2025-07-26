@@ -8,7 +8,7 @@ https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
 Download the DeepSeek R1 model from the above url.
 '''
 
-modelpath = '/path/to/DeepSeek-R1-Distill-Qwen-1.5B'
+modelpath = './DeepSeek-R1-Distill-Qwen-1.5B'
 llm = RKLLM()
 
 # Load model
@@ -31,11 +31,11 @@ dataset = "./data_quant.json"
 # w8a8/w8a8_gx   is recommended to use the normal algorithm.  
 # w4a16/w4a16_gx is recommended to use the grq algorithm.
 qparams = None # Use extra_qparams
-target_platform = "RK3588"
+target_platform = "RK3576"
 optimization_level = 1
 quantized_dtype = "W8A8"
 quantized_algorithm = "normal"
-num_npu_core = 3
+num_npu_core = 1
 
 ret = llm.build(do_quantization=True, optimization_level=optimization_level, quantized_dtype=quantized_dtype,
                 quantized_algorithm=quantized_algorithm, target_platform=target_platform, num_npu_core=num_npu_core, extra_qparams=qparams, dataset=dataset, hybrid_rate=0, max_context=4096)
