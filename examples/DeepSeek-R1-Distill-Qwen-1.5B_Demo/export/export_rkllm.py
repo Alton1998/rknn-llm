@@ -17,7 +17,7 @@ llm = RKLLM()
 # dtype  options ['float32', 'float16', 'bfloat16']
 # Using 'bfloat16' or 'float16' can significantly reduce memory consumption but at the cost of lower precision  
 # compared to 'float32'. Choose the appropriate dtype based on your hardware and model requirements. 
-ret = llm.load_huggingface(model=modelpath, model_lora = None, device='cuda', dtype="float32", custom_config=None, load_weight=True)
+ret = llm.load_huggingface(model=modelpath, model_lora = None, device='cuda', dtype="float16", custom_config=None, load_weight=True)
 # ret = llm.load_gguf(model = modelpath)
 if ret != 0:
     print('Load model failed!')
@@ -35,16 +35,20 @@ target_platform = "RK3576"
 optimization_level = 1
 quantized_dtype = "W8A8"
 quantized_algorithm = "normal"
-num_npu_core = 1
+num_npu_core = 2
 
 ret = llm.build(do_quantization=True, optimization_level=optimization_level, quantized_dtype=quantized_dtype,
                 quantized_algorithm=quantized_algorithm, target_platform=target_platform, num_npu_core=num_npu_core, extra_qparams=qparams, dataset=dataset, hybrid_rate=0, max_context=4096)
+print("Building")
+print(ret)
 if ret != 0:
     print('Build model failed!')
     exit(ret)
 
 # Export rkllm model
 ret = llm.export_rkllm(f"./{os.path.basename(modelpath)}_{quantized_dtype}_{target_platform}.rkllm")
+print("Exporting")
+print(ret)
 if ret != 0:
     print('Export model failed!')
     exit(ret)
